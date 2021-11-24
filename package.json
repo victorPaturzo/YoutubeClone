@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15"
+  },
+  "name": "youtubeclone",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorPaturzo/YoutubeClone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorPaturzo/YoutubeClone/issues"
+  },
+  "homepage": "https://github.com/victorPaturzo/YoutubeClone#readme"
+}
