@@ -1,0 +1,1 @@
+const connectDB = require('./startup/db');
