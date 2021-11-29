@@ -2,7 +2,7 @@ const express = require('express');
 const{Reply, Comment, validateComment}=require('../models/comment');
 const router=express.Router();
 
-router.get('/', async (req,res)=>{
+router.get('/:videoId', async (req,res)=>{
     try {
         const comments= await Comment.find();
         return res.send(comments);
@@ -30,16 +30,13 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/', async (req, res) => {
+router.put('/:commentId', async (req, res) => {
     try {
-        const { error } = validate(req.body);
-        if (error) return res.status(400).send(error);
 
-        const comment = await comment.findByIdAndUpdate(
-            req.params.id,
+        const comment = await Comment.findByIdAndUpdate(
+            req.params.commentId,
             {
-                likes: req.body.likes,
-                dislikes: req.body.dislikes,
+                ...req.body
             },
             { new: true}
         );
@@ -55,27 +52,26 @@ router.put('/', async (req, res) => {
     }
 });
 
-router.post('/:id', async (req, res) => {
+router.post('/:commentId/replies', async (req, res) => {
     try {
-        const { error } = validate(req.body);
-        if (error) return res.status(400).send(error);
+        // Query and get the specific object from the DB
+        const comment = await Comment.findById(req.params.commentId);
 
-        const comment = await Comment.findByIdAndUpdate(
-            req.params.id,
-            {
-               text: req.body.text,
-               likes: req.body.likes,
-               dislikes: req.body.dislikes, 
-            },
-            { new: true }
-        );
-
-        if (!comment)
-            return res.status(400).send(`The comment requested does not exist.`);
-
+        const reply = new Reply({
+           text: req.body.text,
+           likes: req.body.likes,
+           dislikes: req.body.dislikes,
+        });
+         // Push the new rply object into the comment's replies array    
+        comment.replies.push(reply);
+       
+        
+        
+        // save the comment object
         await comment.save();
 
-        return res.send(comment);
+        // send back the comment
+        return res.send(comment.replies);
     } catch (ex)  {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
