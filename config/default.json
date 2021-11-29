@@ -1,1 +1,4 @@
-{"mongoURI" : "mongodb+srv://VictorPaturzo:Katana4422!!@cluster0.pw8d7.mongodb.net/Cluster0?retryWrites=true&w=majority"}
+{
+    "mongoURI" : "mongodb+srv://VictorPaturzo:Katana4422@Cluster0.pw8d7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+}
+

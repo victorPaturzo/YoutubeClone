@@ -20,12 +20,9 @@ const commentSchema= new mongoose.Schema(
 )
 
 function validateComment(comment){
-    const schema=Joi.object({
+    const schema = Joi.object({
         videoId: Joi.string().min(2).max(50).required(),
         text: Joi.string().required(),
-        likes: Joi.number().required(),
-        dislikes:Joi.number().required(),
-
     });
     return schema.validate(comment);
 }
@@ -33,6 +30,6 @@ function validateComment(comment){
 const Comment = mongoose.model('Comment',commentSchema);
 const Reply = mongoose.model('Reply', replySchema);
 
-module.exports.Reply=Reply;
-exports.validate=validateComment;
-module.exports.Comment=Comment;
+module.exports.Reply = Reply;
+module.exports.validateComment = validateComment;
+module.exports.Comment = Comment;

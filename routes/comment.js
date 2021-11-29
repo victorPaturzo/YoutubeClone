@@ -1,6 +1,5 @@
-const { productSchema } = require('../../../Assignments_UserStories/MongooseTutorial/models/product');
-const{Reply, validate}=require('../models/comment');
-const{Comment, validate}=require('../models/comment');
+const express = require('express');
+const{Reply, Comment, validateComment}=require('../models/comment');
 const router=express.Router();
 
 router.get('/', async (req,res)=>{
@@ -14,16 +13,13 @@ router.get('/', async (req,res)=>{
 
 router.post('/', async (req, res) => {
     try {
-        const { error } = validate(req.body);
+        const { error } = validateComment(req.body);
         if (error)
             return res.status(400).send(error);
 
         const comment = new Comment({
             videoId: req.body.videoId,
             text: req.body.text,
-            likes: req.body.likes,
-            dislikes: req.body.dislikes,
-            replies: req.body.replies,
         });
 
         await comment.save();
