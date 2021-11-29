@@ -85,8 +85,4 @@ router.post('/:id', async (req, res) => {
     }
 });
 
-
-//make a put request to backend api to like or dislike a comment
-
-//make a post request to backend api toreply to another comment in the comment section
 module.exports=router;
